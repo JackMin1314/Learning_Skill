@@ -3,7 +3,7 @@
   * [二、安装Ubuntu](#二、安装Ubuntu)
   * [三、尝试安装轻量级桌面程序进行远程访问](#三、尝试安装轻量级桌面程序进行远程访问)
   * [四、解决Ubuntu中文乱码的问题](#四、解决Ubuntu中文乱码的问题)
-  * [五、安装相关环境 python, java](#五、安装相关环境 python, java)
+  * [五、安装相关环境python&&java](#五、安装相关环境python&&java)
 
 # Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接
 
