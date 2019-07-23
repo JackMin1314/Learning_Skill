@@ -1,4 +1,9 @@
-[TOC]
+- [Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接](#windows10-----wsl--ubuntu1904---------)
+  * [一、启用WSL功能](#----wsl--)
+  * [二、安装Ubuntu](#----ubuntu)
+  * [三、尝试安装轻量级桌面程序进行远程访问](#-------------------)
+  * [四、解决Ubuntu中文乱码的问题](#----ubuntu-------)
+  * [五、安装相关环境 python, java](#---------python--java)
 
 # Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接
 
@@ -8,7 +13,7 @@
 
 2. 然后选择  **程序**--> **启用或关闭windows功能**,如下:
 
-![1563514920627](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563514920627.png)
+ ![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/1.png)
 
 3. 见上图*勾选*"**适用于Linux的windows子系统**"、"**虚拟机平台**", 单击确定.
 
