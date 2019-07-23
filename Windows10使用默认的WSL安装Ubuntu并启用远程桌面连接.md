@@ -1,9 +1,9 @@
-- [Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接](#windows10-----wsl--ubuntu1904---------)
-  * [一、启用WSL功能](#----wsl--)
-  * [二、安装Ubuntu](#----ubuntu)
-  * [三、尝试安装轻量级桌面程序进行远程访问](#-------------------)
-  * [四、解决Ubuntu中文乱码的问题](#----ubuntu-------)
-  * [五、安装相关环境 python, java](#---------python--java)
+- [Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接](#Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接)
+  * [一、启用WSL功能](#一、启用WSL功能)
+  * [二、安装Ubuntu](#二、安装Ubuntu)
+  * [三、尝试安装轻量级桌面程序进行远程访问](#三、尝试安装轻量级桌面程序进行远程访问)
+  * [四、解决Ubuntu中文乱码的问题](#四、解决Ubuntu中文乱码的问题)
+  * [五、安装相关环境 python, java](#五、安装相关环境 python, java)
 
 # Windows10使用默认的WSL安装Ubuntu19.04并启用远程桌面连接
 
@@ -23,19 +23,19 @@
 
 1. 进入MicroSoft Store(windows 应用商店) 搜索Ubuntu可得到:
 
-![1563515168455](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563515168455.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/2.png)
 
 2. 选择相应版本 第一个默认是最新版本. 等待安装即可.
 
-![1563515401917](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563515401917.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/3.png)
 
 3. 如果经常使用可以添加到任务栏.单击即可看到启动页面,依据提示输入用户名和密码,密码输入两次且看不见,要细心. 进入登录系统后
 
-![1563515541960](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563515541960.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/4.png)
 
 4. 查看当前版本信息 终端输入:  **lsb_release  -a**   终端复制可以先复制,在终端右击即可.终端内命令复制也是单击(复制)、右击(粘贴)
 
-![1563515807236](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563515807236.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/5.png)
 
 Ubuntu 19.04版本;代号为disco(迪斯科)
 
@@ -46,7 +46,8 @@ jackmin@机械革命:~$ pwd
 /home/jackmin
 ```
 
-实际上Ubuntu文件隐藏很深,	在windows系统的:	C:\Users\Administrator\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs![1563517073584](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563517073584.png)
+实际上Ubuntu文件隐藏很深,	在windows系统的:	C:\Users\Administrator\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/6.png)
 
 
 
@@ -59,7 +60,7 @@ jackmin@机械革命:/mnt$ ls
 c  d  e  f  g
 ```
 
-![1563517623665](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563517623665.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/7.png)
 
 可以看到c盘的内容跟windows系统的一样.
 
@@ -182,17 +183,17 @@ sudo apt-get upgrade
    [20190719-15:20:51] [DEBUG] Testing if xrdp can listen on 0.0.0.0 port 3390.
    [20190719-15:20:51] [DEBUG] Closed socket 6 (AF_INET6 :: port 3390)
 
-   ![1563520910570](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563520910570.png)
+   ![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/8.png)
 
    说明可以通过windows本机远程访问本地<u>127.0.0.1:3390</u>  `3390` 是端口号
 
 4.  （不要关闭终端）再回到windows界面,按快捷键 <u>**windows + r**  **输入mstsc**</u>
 
-   ![1563521377384](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563521377384.png)
+   ![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/9.png)
 
    输入127.0.0.1:3390,勾选始终要求凭据,点击连接
 
-![1563521527509](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563521527509.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/10.png)
 
 成功!!!
 
@@ -205,9 +206,9 @@ cd Desktop/
 touch a.txt
 ```
 
-![1563521829688](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563521829688.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/11.png)
 
-![1563521883210](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563521883210.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/12.png)
 
 成功！！！
 
@@ -264,7 +265,7 @@ sudo apt-get install fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-
 
 3. 建议1，2都执行,重新登陆，结果成功如下，不是乱码空格了。
 
-   ![1563726936138](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563726936138.png)
+   ![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/13.png)
 
    
 
