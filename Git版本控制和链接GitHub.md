@@ -88,7 +88,7 @@ nothing to commit (create/copy files and use "git add" to track)
 - 工作区有一个隐藏目录`.git`，这个不算工作区，而是**Git的版本库**。
 - Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`。
 
-![git-repo](https://www.liaoxuefeng.com/files/attachments/919020037470528/0)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/Git_1.png)
 
 - 有分支和`HEAD`的概念,我们把文件往Git版本库里添加的时候，是分两步执行的：
 
@@ -152,7 +152,7 @@ $ git rm --cached <file>
 $ git commit text.txt
 ```
 
-![1563776473898](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1563776473898.png)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/Git_2.png)
 
 通过这种方式必须要输入,否则不予许commit;完毕再次查看当前git状态
 
@@ -226,10 +226,7 @@ git branch feature然后 git reset --hard origin/master 最后git checkout featu
 ```
 
 - 图片来源网络
-
-![img](https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/zECAdgjXfarIlL7o9CfbvQN5T9DYe8mwupy6DFAyNApye7AVePibhX0TxkyJKXgKdBqUdhXiahXL3M6ydYglV7KQ/640?wx_fmt=png)
-
-
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/Git_3.png)
 
 慎用 `git rebase` 会变基,会产生代码冲突(蠢货给 push了)
 
@@ -241,7 +238,7 @@ git branch feature然后 git reset --hard origin/master 最后git checkout featu
 
 - 图片来源网络
 
-![è¿éåå¾çæè¿°](https://img-blog.csdn.net/20160926112331953)
+![image](https://github.com/JackMin1314/Learning_Skill/raw/master/WSL_pic/Git_4.png)
 
 <u>`git pull –rebase` 的理解:</u>
 这个命令做了以下内容： 
