@@ -193,7 +193,10 @@ JAVA_HOME=/usr/lib/jvm/jdk-12.0.2
 
 ```html
 <configuration>
-        <property>                                                                               <name>mapreduce.framework.name</name>                                                     <value>yarn</value>                                                                       </property>
+<property>
+	<name>mapreduce.framework.name</name>
+	<value>yarn</value>
+</property>
 </configuration>
 ```
 
