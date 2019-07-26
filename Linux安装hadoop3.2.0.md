@@ -5,7 +5,7 @@ Table of Contents
    * [Linux上面安装hadoop3.2.0教程](#linux上面安装hadoop320教程)
       * [一、安装java并配置环境变量](#一安装java并配置环境变量)
          * [1.安装  <strong>Java</strong>](#1安装--java)
-         * [2. 配置linux下 **java环境变量 **](#2-配置linux下-java环境变量-)
+         * [2. 配置linux下 <strong>java环境变量</strong>](#2-配置linux下-java环境变量-)
       * [二、安装配置<strong>hadoop</strong>](#二安装配置hadoop)
          * [1. 安装 <strong>hadoop</strong>](#1-安装-hadoop)
          * [2. hadoop <strong>环境变量和配置</strong>](#2-hadoop-环境变量和配置)
@@ -74,7 +74,7 @@ hadoop@机械革命:/usr/lib/jvm/jdk-12.0.2$ ls
 bin  conf  include  jmods  legal  lib  man  release
 ```
 
-### 2. 配置linux下 **java环境变量 **
+### 2. 配置linux下 java环境变量 
 
 打开 `/etc/profile  `添加JAVA_HOMEM 和 JAVA_PATH 和 CLASSPATH
 
