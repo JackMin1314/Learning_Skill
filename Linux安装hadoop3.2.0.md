@@ -398,7 +398,8 @@ hadoop@机械革命:/etc/ssh$ sudo /etc/init.d/ssh restart
 ```shell
 hadoop@机械革命:~/hadoop-3.2.0/sbin$ sudo chmod 644 ~/.ssh/known_hosts
 hadoop@机械革命:~/hadoop-3.2.0/sbin$ sudo chmod 755 ~/.ssh
-
+$ sudo chown -v $USER ~/.ssh/known_hosts
+# '/home/hadoop/.ssh/known_hosts' 的所有者已从 root 更改为 hadoop
 ```
 
 执行ssh localhost成功
