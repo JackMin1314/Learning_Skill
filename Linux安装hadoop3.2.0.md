@@ -403,6 +403,8 @@ $ sudo chown -v $USER ~/.ssh/known_hosts
 ```
 
 执行ssh localhost成功
+出现这个：E: Could not read response to hello message from hook
+`sudo rm -rf /etc/apt/apt.conf.d/20snapd.conf`
 
 ## 四、启动**hadoop**
 
