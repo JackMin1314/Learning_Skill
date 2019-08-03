@@ -300,4 +300,95 @@ index-url = http://pypi.mirrors.ustc.edu.cn/simple/
 timeout = 6000
 trusted-host = pypi.mirrors.ustc.edu.cn
 ```
+3. 安装  **Java**
 
+   官网下载最新的 [jdk]:<https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html>
+
+   勾选accept. linux环境选择64位，下载debain版本.deb后缀或者.tar.gz后缀。我用的是.deb
+
+- 下载好后进入文件目录我的在Downloads/
+
+```shell
+hadoop@机械革命:/home/jackmin/Downloads$ ls
+jdk-12.0.2_linux-x64_bin.deb
+```
+
+- 安装jdk输入命令  **`dpkg -i jdk-12.0.2_linux-x64_bin.deb`  **
+
+- 安装后不知道目录怎么查看？
+
+  先看dpkg 的列表里面有没有安装   **`dpkg -l jdk*`**
+
+```shell
+hadoop@机械革命:/home/jackmin/Documents$ dpkg -l jdk*
+期望状态=未知(u)/安装(i)/删除(r)/清除(p)/保持(h)
+| 状态=未安装(n)/已安装(i)/仅存配置(c)/仅解压缩(U)/配置失败(F)/不完全安装(H)/触发器等待(W)/触发器未决(T)
+|/ 错误?=(无)/须重装(R) (状态，错误：大写=故障)
+||/ 名称           版本         体系结构     描述
++++-==============-============-============-===============================================
+ii  jdk-12.0.2     12.0.2-1     amd64     Java Platform Standard Edition Development Kit
+```
+
+​		查看所在位置  **`dpkg -L jdk-12.0.2`**
+
+```shell
+hadoop@机械革命:/home/jackmin/Documents$ dpkg -L jdk-12.0.2
+/.
+/usr
+/usr/lib
+/usr/lib/jvm
+/usr/lib/jvm/jdk-12.0.2
+/usr/lib/jvm/jdk-12.0.2/release
+....
+```
+
+​		可以知道在/usr/lib/jvm里面.完全可以一开始就创建一个可以读写(chmod)的目录,然后安装时指定到这个目录		中
+
+- 可以进入目录查看/usr/lib/jvm/jdk-12.0.2/
+
+```shell
+hadoop@机械革命:/usr/lib/jvm/jdk-12.0.2$ ls
+bin  conf  include  jmods  legal  lib  man  release
+```
+
+- **配置linux下 <font color=red>java环境变量</font> **
+
+打开 `/etc/profile  `添加JAVA_HOMEM 和 JAVA_PATH 和 CLASSPATH
+
+```shell
+hadoop@机械革命:/usr/lib/jvm/jdk-12.0.2/bin$ vim /etc/profile
+```
+
+(如果提示没有读写权限,用chmod,见前面内容)
+
+`shift + g` 迅速定位到最后一行行首,新添加一行输入:
+
+```shell
+# 等号'='两边不能有空格
+export JAVA_HOME=/usr/lib/jvm/jdk-12.0.2	# 根据具体路径添加
+export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH	# 添加/bin  /jre/bin
+export CLASSPATH=.:$JAVA_HOME/lib:$JAVA_home/jre/lib		# 注意前面.: 添加/lib  /jre/lib
+```
+
+保存退出 `:wq`
+
+为了使环境变量生效,需要进行 `source  /etc/profile`
+
+```shell
+$ source /etc/profile
+$ java -version
+java version "12.0.2" 2019-07-16
+Java(TM) SE Runtime Environment (build 12.0.2+10)
+Java HotSpot(TM) 64-Bit Server VM (build 12.0.2+10, mixed mode, sharing)
+```
+
+因为每次开机都需要运行 source  /etc/profile,我们可以进入.bashrc然后添加 `source /etc/profile`
+
+```shell
+# 进入cd ~  
+# 然后ls -la 找到.bashrc  然后vim .bashrc
+# 在里面定位shift + g 最后一行插入 source /etc/profile
+
+```
+
+Bingo!!!
