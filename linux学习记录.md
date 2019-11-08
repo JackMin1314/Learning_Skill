@@ -127,7 +127,7 @@ https://www.kernel.org/
 https://kernel.ubuntu.com/~kernel-ppa/mainline
 ```
 
-![1569462635559](/home/jackmin/桌面/Learning_Notes/1569462635559.png)
+![linux_kernel](https://github.com/JackMin1314/PicturesFiles/blob/master/linux_kernel.png)
 
 选择四个后缀为.deb的即可，见图两个header，一个image，一个module（含有generic）
 
