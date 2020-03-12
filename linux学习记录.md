@@ -203,4 +203,206 @@ Categories=GoLand;
 
 　　然后进入 /etc/apt/sources.list.d 目录，将相应 ppa 源的保存文件删除。也可以直接将 /etc/apt/sources.list自己添加的无效源删掉或者注释
 　　最后同样更新一下：sudo apt-get update
+### 4. 下载了（WSL）ubuntu如何升级、换源和配置环境
+
+​		这里用WSL举例，因为是最新的win10预览版本，开启wsl2 。具体如何安装参考[教程]([https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E7%9A%84WSL%E5%AE%89%E8%A3%85Ubuntu%E5%B9%B6%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5.md](https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10使用默认的WSL安装Ubuntu并启用远程桌面连接.md)).
+
+管理员身份运行powershell输入 `wsl --set-default-version 2 `
+
+查看当前的wsl版本信息 `wsl -l -v` 看到version是2即可。
+
+> NAME                   STATE           VERSION
+> Ubuntu                 Running         2
+
+启动Ubuntu后，默认从商店安装的不一定时最新的版本，故需要升级，但是考虑网络访问问题，**先换源，再升级**。
+
+* 换源需要遵循版本对应，通过查看`lsb_release -a`知道codename为 `bionic`（这个后面要用）
+
+> No LSB modules are available.
+> Distributor ID: Ubuntu
+> Description:    Ubuntu 18.04.4 LTS
+> Release:        18.04
+> Codename:       bionic
+
+```shell
+# 先备份
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.bank
+# 再创建并编辑（也可以直接编辑不备份）
+sudo vim /etc/apt/sources.list
+# 复制下面的内容，将codename换成上面查到的代号 bionic(以阿里的源为例)如下，如果是disco就换disco
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+然后更新下,并安装
+
+```shell
+sudo apt-get update && sudo apt-get upgrade
+```
+
+* 升级前先切换成root用户
+
+```shell
+sudo su
+do-release-upgrade
+```
+
+这里会提示需要修改一个文件
+
+> Checking for a new Ubuntu release
+> There is no development version of an LTS available.
+> To upgrade to the latest non-LTS develoment release
+> set Prompt=normal in /etc/update-manager/release-upgrades.
+
+```shell
+sudo vim /etc/update-manager/release-upgrades
+# 然后修改lts为normal
+Prompt=normal
+```
+
+运行`do-release-upgrade` 安装确认即可；如果不换源，会导致升级很慢。我这里就直接从18.04lts升到了19.10
+
+重新查看版本信息`lsb_release -a`时codename变成了eoan
+
+这时候在查看`/etc/apt/sources.list` 文件已经自动被改为eoan
+
+* 安装oh-my-zsh
+
+```shell
+# 安装zsh包
+sudo apt-get install zsh
+# 切换终端shell默认的bash为zsh
+sudo chsh -s /bin/zsh
+# 重启下reboot
+
+# 安装zsh，需要提前安装好git
+sudo apt-get install git
+# 更新下
+sudo apt-get update && sudo apt-get upgrade
+# 安装oh-my-zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# (可选)安装语法高亮和自动补全
+cd ~/.oh-my-zsh/plugins
+# 语法高亮
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# 自动补全
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+#　然后需要在~/.zshrc声明下这几个插件，找到plugins=()里面添加
+vim ~/.zshrc
+....
+plugins=(
+git
+zsh-syntax-highlighting
+zsh-autosuggestions
+)
+# 保存source ~/.zshrc退出重登即可
+```
+
+如果有换中文、乱码等情况，请参考这里[教程]([https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E7%9A%84WSL%E5%AE%89%E8%A3%85Ubuntu%E5%B9%B6%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5.md](https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10使用默认的WSL安装Ubuntu并启用远程桌面连接.md))
+
+### 5. Python、Java、Go环境变量设置
+
+* Java安装和环境配置参考原先[教程]([https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10%E4%BD%BF%E7%94%A8%E9%BB%98%E8%AE%A4%E7%9A%84WSL%E5%AE%89%E8%A3%85Ubuntu%E5%B9%B6%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5.md](https://gitee.com/JackMin1314/Learning_Skill/blob/master/Windows10使用默认的WSL安装Ubuntu并启用远程桌面连接.md))
+
+也可以安装默认的openjdk `sudo apt install default-jdk` 
+
+* Python安装和环境配置
+
+> 下载Python-3.8.2.tar.xz文件后，解压到/usr/local/路径
+>
+> ``` shell
+> sudo tar -C /usr/local -xvf Python-3.8.2.tar.xz
+> cd /usr/local/Python-3.8.2
+> # 在安装前需要先安装一些依赖
+> sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
+> # 执行configure脚本，优化python二进制文件
+> ./configure --enable-optimizations
+> # 启动构建Python过程
+> make -j 8
+> # 构建完成安装python文件，不使用install是为了避免将本地有自带的python3覆盖
+> sudo make altinstall
+> # 添加环境变量或者建立软链接
+> sudo ln -s /usr/local/Python-3.8.2/python /usr/local/bin/python
+> # 输入查看版本(不建立软链接，直接Python3.8 -V也是可以的)
+> $ python -V
+> Python 3.8.2
+> # 添加pip软链接,并升级
+> sudo ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip
+> $ pip -V
+> pip 19.2.3 from /usr/local/lib/python3.8/site-packages/pip (python 3.8)
+> # 升级pip
+> pip install --user --upgrade pip
+> # 对python换源
+> sudo mkdir -m=777 ~/.pip/
+> sudo vim pip.conf
+> # 输入
+> [global]
+> index-url = http://mirrors.aliyun.com/pypi/simple/
+> timeout = 6000
+> trusted-host = mirrors.aliyun.com
+> 
+> ```
+
+* Go安装和环境配置
+
+> 类似Python的做法，下载go1.14.linux-amd64.tar.gz文件后，解压到/usr/local路径(推荐)
+>
+> ```shell
+> sudo tar -C /usr/local -zxvf go1.14.linux-amd64.tar.gz
+> cd /usr/local/go
+> # 这里go不需要想Python一样编译，已经是生成好的了，所以添加到环境变量即可，或者添加软链接。建议go添加环境变量，然后还需要添加工作目录
+> # 在终端的配置文件中添加环境变量(等号左右无空格)
+> sudo vim ~/.zshrc
+> # 在前面添加
+> export GOROOT=/usr/local/go/bin
+> export PATH=$GOROOT:$PATH
+> # 测试版本
+> $ go version
+> go version go1.14 linux/amd64
+> # 添加工作路径(本人在$home路径创建)
+> sudo mkdir -m=777 $HOME/Projects_repo/go
+> # 进入目录创建src、pkg、bin目录
+> # src ---- 里面每一个子目录，就是一个包。包内是Go的源码文件
+> # pkg ---- 编译后生成的，包的目标文件
+> # bin ---- 生成的可执行文件
+> # 再次修改~/.zshrc。将之前的PATH追加$HOME/Projects_repo/go
+> export PATH=$GOROOT:$HOME/Projects_repo/go:$PATH
+> # 后面开发go的话在src目录下建项目文件夹,然后再在项目文件中添加.go程序
+> ```
+
+### 6. ubunt19.10安装docker和镜像加速设置
+
+> ## 前言
+>
+> For WSL:
+>
+> 因为之前docker不支持最新版的ubuntu19.10文档一直没有更新，现在官方已经支持了。例外，由于WSL属于win10高版本，对于WSL版本为1是不能直接运行使用的（但不代表不支持），需要配合windows环境（守护进程模式）使用；本质上通信是C/S架构的。因而要借助Windows的docker根据远程ip访问。
+>
+> 如果现在已经安装我上面说的开启了WSL2（需要开启了Windows Insider模式，预览版用户）,本人当前电脑`win10  version 2004  OS build 19041.113`.现在可以使用 localhost 从 Windows 访问 Linux 网络应用程序.其次，最新版的Windows docker也支持了wsl2，安装了Windows版本的docker，就可以直接在wsl里面使用docker。（简单设置即可）
+>
+> 至于加速，如果有阿里云或者其他云厂商账号，可以在镜像加速服务里找到自己的私有镜像加速register.
+>
+> 如果是windows用户，直接在docker desktop的设置中docker enginer的configure添加，同上位置
+>
+> For Linux
+>
+> [官网传送门](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+>
+> 如果是linux用户在`vim /etc/docker/daemon.json`里面添加；如果没有私有的镜像加速，添加官方的国内镜像，或者阿里其他的官网镜像即可
+>
+> ```json
+> {
+>  "registry-mirrors": ["https://registry.docker-cn.com","私有的镜像服务器地址"]
+> }
+> ```
+
+
 
