@@ -104,6 +104,32 @@ sudo apt-get upgrade
 update-manager -c -d
 
 ```
+### 6. 如何批量删除指定程序的所有进程
+linux 下查看进程情况用ps -ef，会显示当前所有进程，借助管道符grep可以操作和输出我们需要的信息。以nginx为例，杀死所有进程。
+
+* 方法一：
+``` shell
+ps -ef|grep nginx|grep -v grep|cut -c 9-16|xargs sudo kill -9
+```
+下面对这个命令解释说明。
+> ps -ef 查看所以的进程信息
+>
+> grep nginx 从前面的到的所有信息中找到有关nginx字符的信息
+>
+> grep -v grep 表示除去含有grep信息的(例如去除"jackmin     8403    6997  0 15:46 pts/0    00:00:00 **grep** --color=auto --exclude-dir=.bzr --exclude-dir=CVS")
+>
+> cut -c 9-16 表示输出信息中截取第9个到第16个字符（pid号）
+>
+> xargs sudo kill -9 将前面得到的结果作为参数传递给kill -9，这里kill操作需要root权限执行。
+>
+> xargs的默认命令是echo，这意味着通过管道传递给xargs的输入将会包含换行和空白，不过通过xargs的处理，换行和空白将被空格取代;它能够捕获一个命令的输出，然后传递给另外一个命令
+
+
+* 方法二：
+```shell
+ps -ef |grep nginx|grep -v grep|awk '{print $2}'|xargs sudo kill -9
+```
+awk '{print $2}'  其中awk按行扫描文件，从第一行到最后一行，寻找匹配的特定模式的行，并在这些行上进行操作（这里是输出第二列，进程号）。
 
 ## 二、相关操作
 
