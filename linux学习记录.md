@@ -444,4 +444,35 @@ windows键+r打开运行窗口输入`msinfo32`可以看到基于虚拟化的安�
 
 再次运行`msinfo32` 会发现基于虚拟化的安全值为`not enabled`
 
+### 8.高版本mysql数据库如何修改root密码和允许远程连接
+
+>  修改root密码：
+> ```sql
+> # 先进入本地的root帐户(如果密码忘记了，需要先进行忘记密码进入)
+> mysql -u root -p
+> use mysql;
+> # 查询本地账户信息，注意user和host的对应
+> select user, host, authentication_string from user;
+> # 修改root的密码(下面的localhost是上面查询得到root对应的host内容，有的可能是%)
+> alter user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '你的新密码';
+> # 刷新一下权限
+> flush privileges;
+> # 退出重新进入mysql检验修改是否成功
+> exit
+> ```
+> 允许远程连接：
+> ```sql
+> # 同上仅修改root对应的host为%即可
+> use mysql;
+> update user set host = '%' where user = 'root';
+> FLUSH PRIVILEGES;
+> ```sql
+> mysql忘记密码登录
+> 1. 停掉mysql的服务 `service mysql stop`
+> 2. 进入并修改/etc/mysql/mysql.conf.d下的`mysqld.cnf`
+> 3. 在[mysqld]节点下添加 `skip-grant-tables`
+> 4. 重新启动mysql服务 `service mysql start`
+> 5. 重新进入mysql检验修改是否成功
+> 6. 后面如果需要再次修改密码可以参照上面的修改root密码内容，然后在将第二步节点[mysqld]下面的`skip-grant-tables`注释
+> ```
 
