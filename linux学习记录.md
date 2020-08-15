@@ -475,4 +475,17 @@ windows键+r打开运行窗口输入`msinfo32`可以看到基于虚拟化的安�
 > 5. 重新进入mysql检验修改是否成功
 > 6. 后面如果需要再次修改密码可以参照上面的修改root密码内容，然后在将第二步节点[mysqld]下面的`skip-grant-tables`注释
 > ```
+### 9.Vmware安装linux启动提示 Device/Credential Guard are not compatible.
+
+>  报错问题：
+>
+>  VMware Workstation and Device/Credential Guard are not compatible. VMware Workstation can be run after disabling Device/Credential Guard. Please visit http://www.vmware.com/go/turnoff_CG_DG for more details.
+
+windows键+r打开运行窗口输入`msinfo32`可以看到基于虚拟化的安全为正在运行（running）
+
+通过搜索 `Turn windows features on or off`（也可以在控制面板里面找到）如图标注配置。
+
+这里取消勾选`Hyper-V` 、`Virtual Machine Platform`、`Windows Hypervisor Platform`。保存根据提示restart PC即可。(注：如果需要同时使用docker desktop，可能上面的Hyper-V就会要求打开，跟VMware就会冲突。)
+
+再次运行`msinfo32` 会发现基于虚拟化的安全值为`not enabled`
 
